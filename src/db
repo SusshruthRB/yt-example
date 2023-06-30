@@ -1,0 +1,38 @@
+
+CREATE TABLE cats
+(
+  owner_id              INT unsigned NOT NULL AUTO_INCREMENT, # Unique ID for the record
+  name            VARCHAR(150) NOT NULL,                # Name of the cat
+  owner_id        VARCHAR(150) NOT NULL,             # Owner of the cat
+  birth           DATE NOT NULL,                        # Birthday of the cat
+  FOREIGN KEY     (owner_id) REFERENCES owners(id)      # Make the id the foreign key
+);
+
+CREATE TABLE dogs
+(
+  id              INT unsigned NOT NULL AUTO_INCREMENT, # Unique ID for the record
+  name            VARCHAR(150) NOT NULL,                # Name of the dog
+  owner_id        INT unsigned NOT NULL,             # Owner of the cat
+  birth           DATE NOT NULL,                        # Birthday of the dog
+  INDEX par_ind (parent_id),
+  FOREIGN KEY     (owner_id) REFERENCES owners(id)      # Make the id the foreign key
+);
+
+CREATE TABLE owners
+(
+  id              INT unsigned NOT NULL AUTO_INCREMENT, # Unique ID for the record
+  name            VARCHAR(150) NOT NULL,                # Name of the owner
+  birth           DATE NOT NULL,                        # Birthday of the owner
+  PRIMARY KEY     (id)                                  # Make the id the primary key
+);
+
+CREATE TABLE dogs (
+    id INT,
+    name VARCHAR(150) NOT NULL,
+    owner_id INT,
+    INDEX par_ind (owner_id),
+    FOREIGN KEY (id)
+        REFERENCES owners(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=INNODB;
